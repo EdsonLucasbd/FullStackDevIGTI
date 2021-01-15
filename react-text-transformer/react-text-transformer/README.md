@@ -2,7 +2,7 @@
 
 ### `How to use`
 <ul>
-  <li>Make sure you have a recent version of Node.js installed<li>
+  <li>Make sure you have a recent version of Node.js installed</li>
   <li>Download the project</li>
   <li>Once inside the react-text-transformer folder run:</li>
     <ul>
