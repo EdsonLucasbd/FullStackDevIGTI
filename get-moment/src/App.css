@@ -1,0 +1,9 @@
+div {
+  padding: 10px;
+}
+
+button {
+  width: 50%;
+  height: 50px;
+  cursor: pointer;
+}
