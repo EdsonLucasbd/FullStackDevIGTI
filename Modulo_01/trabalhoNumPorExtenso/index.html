@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- <link type="text/css" rel="stylesheet" href="./src/styles/index.css" /> -->
+  <link rel="stylesheet" href="./css/reset.css" />
+  <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+  <title>Número por extenso</title>
+</head>
+<body>
+    <div class="container">
+      <h1 class="card-panel grey darken-4 white-text">Números por extenso</h1>
+      <div>
+        <div class="range-field">
+          <h4>Escolha um número entre 0 e 999:</h4>
+          <br/>
+          <input id="inputRange" type="range" value="0" min="0" max="999" step="1" />
+        </div>
+
+        <div class="input-field">
+          <input id="rangeNumber" type="text" value="0" disabled readonly />
+          <label for="rangeNumber" class="active">Número atual:</label>
+        </div>
+
+        <div class="input-field">
+          <input id="rangeNumberText" type="text" placeholder="Número por extenso" value="zero" disabled readonly />
+          <label for="rangeNumberText" class="active">Número por extenso:</label>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script type="text/javascript" src="./src/scripts/numExtenso.js" defer></script>
+</body>
+</html>
