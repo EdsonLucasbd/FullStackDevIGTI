@@ -1,0 +1,40 @@
+Checklist ✔
+
+1ª ETAPA - Criação de Database e Collection no MongoDB e importação dos dados
+originais
+
+(✔) Acessar o cluster no mongodb atlas e criar um novo Database com os seguites nomes nos respectivos campos:
+  Database Name – DesafioFinalBootcampFullStack;
+  Collection Name – transactions
+
+2ª ETAPA – Implementação do Back End
+
+(✔) Renomear a pasta app-vazio para app;
+
+(✔) Acessar a pasta app através de um terminal de comandos e digitar o comando yarn
+  para instalar as dependências;
+
+(✔)  Ainda na pasta raiz do projeto, executar yarn server para inicializar o Back End de
+  desenvolvimento;
+
+(✔)  Desenvolver as rotas;
+
+3ª ETAPA – Implementação do Front End com React:
+
+(✔)  Acessar a pasta client e digitar yarn para instalar as dependências do projeto;
+
+()  
+
+()
+
+()
+
+()
+
+()
+
+()
+
+()
+
+()
