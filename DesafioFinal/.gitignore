@@ -24,4 +24,7 @@ yarn-debug.log*
 yarn-error.log*
 
 .pdf
+<<<<<<< HEAD
 /checklist_desafio
+=======
+>>>>>>> 4983ad4e773f9a5936a35c0ceb5cb431c92548a6
