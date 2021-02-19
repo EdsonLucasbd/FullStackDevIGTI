@@ -128,14 +128,6 @@ export default function Home() {
         <ButtonPrevNext value="+" onClick={modifyYearMonth} />
       </div>
 
-      <div className="alignRow">
-        <button className="waves-effect btn">
-          <i className="material-icons left">filter_list</i>
-          Filtrar
-        </button>
-        <div className="input-field">
-          <input type="text" id="inputFilter" />
-        </div>
         {currentTransactions.length === 0 && <Loader />}
         {currentTransactions.length > 0 && (
           <>
@@ -146,6 +138,15 @@ export default function Home() {
             <hr/>
           </>
         )}
+        
+      <div className="alignRow">
+        <button className="waves-effect btn">
+          <i className="material-icons left">filter_list</i>
+          Filtrar
+        </button>
+        <div className="input-field">
+          <input type="text" id="inputFilter" />
+        </div>
       </div>
     </div>
   );

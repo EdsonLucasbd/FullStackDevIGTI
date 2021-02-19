@@ -14,7 +14,7 @@
     "nodemon": "2.0.4"
   },
   "scripts": {
-    "server": "nodemon index.js",
+    "server": "nodemon --inspect index.js",
     "start": "node index.js",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },

@@ -16,8 +16,10 @@ export async function apiGetTransactionsByPeriod(yearMonth) {
 } */
 
 const YEARS = [2019, 2020, 2021];
+const GLOBAL_MONTHS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
-const MONTHS = [
+const MONTH_DESCRIPTIONS = [
+  "",
   "Janeiro",
   "Fevereiro",
   "Março",
@@ -38,10 +40,10 @@ function joinYearsMonths() {
   let index = 0;
 
   YEARS.forEach(year => {
-    MONTHS.forEach(month => {
+    GLOBAL_MONTHS.forEach(month => {
       //id = `ym${year}-${index + 1}`,
       const id = `${year}-${month.toString().padStart(2, '0')}`;
-      const monthDescription = `${month}/${year.toString()}`;
+      const monthDescription = `${MONTH_DESCRIPTIONS[month]}/${year.toString()}`;
       yearsAndMonths.push({ id, description: monthDescription, index: index++ });
     });
   });
@@ -58,7 +60,7 @@ function prepareTransaction(transaction) {
     month,
     descriptionLowerCase: description.toLowerCase(),
     categoryLowerCase: category.toLowerCase(),
-    monthDescription: MONTHS[month],
+    monthDescription: MONTH_DESCRIPTIONS[month],
     ...otherFields,
   };
 }
@@ -85,7 +87,7 @@ async function getTransactionsFrom(period) {
   const { id: yearMonth } = period;
   const { data } = await api.get(`${resource}?period=${yearMonth}`);
 
-  const frontEndTransactions = data.map(transaction => {
+  const frontEndTransactions = data.transactions.map(transaction => {
     return prepareTransaction(transaction); 
   });
 

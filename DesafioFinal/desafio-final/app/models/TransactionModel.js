@@ -46,4 +46,4 @@ let schema = mongoose.Schema(
 
 const TransactionModel = mongoose.model("transactions", schema, "transactions");
 
-module.exports = {TransactionModel};
+module.exports = TransactionModel;
