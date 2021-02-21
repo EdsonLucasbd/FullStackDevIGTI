@@ -1,18 +1,45 @@
-import React from 'react'
+import React from 'react';
+import { formatMoney } from '../helpers/moneyHelpers';
+
+const CREDIT_COLOR = '#5AD76B';
+const DEBIT_COLOR = '#D75A5A';
 
 export default function Transaction({ id, day, category, description, value, type }) {
-  const { transactionContanier, descriptionStyle, editIcon } = styles;
+  const { 
+    transactionContanier,
+    transactionStyle, 
+    dataStyle, 
+    descriptionValueStyle, 
+    descriptionStyle, 
+    dateStyle, 
+    categoryStyle, 
+    valueStyle, 
+    actionsStyle, 
+    creditStyle,
+    debitStyle } = styles;
+    
+  const transactionTypeStyle = type === '+' ? creditStyle : debitStyle;
   return (
     <div 
-      className={`card ${type === '+' ? 'green accent-3' : 'red' }`}
+      style={{ 
+        ...transactionContanier, 
+        ...transactionStyle,
+        ...transactionTypeStyle 
+      }}
     >
-      <div style={transactionContanier}>
-        <strong>{day.toString().padStart(2, '0')}</strong>
-        <strong>{category}</strong>
-        <div style={descriptionStyle}>
-          {description}
+      
+      <span style={dateStyle}>{day.toString().padStart(2, '0')}</span>
+     
+      <div style={dataStyle}>
+        <div style={descriptionValueStyle}>
+          <span style={categoryStyle}>{category}</span>
+          <span style={descriptionStyle}>{description}</span>
         </div>
-        {value}
+
+        <span style={valueStyle}>{formatMoney(value)}</span>
+      </div>
+
+      <div style={actionsStyle}>
         <i className="material-icons">edit</i>
         <i className="Tiny material-icons">delete</i>
       </div>
@@ -33,7 +60,16 @@ const styles = {
     border: '1px solid transparent',
     borderRadius: '4px',
     padding: '5px',
-    margin: '5px',
+    margin: '15px',
+    boxShadow: '-1px 7px 15px -3px #000000',
+  },
+
+  debitStyle: {
+    backgroundColor: DEBIT_COLOR,
+  },
+
+  creditStyle: {
+    backgroundColor: CREDIT_COLOR,
   },
 
   dateStyle: {

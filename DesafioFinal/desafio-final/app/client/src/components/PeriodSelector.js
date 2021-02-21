@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "../styles.css";
 import ArrowButton from "./ArrowButton";
 
 export default function PeriodSelector({

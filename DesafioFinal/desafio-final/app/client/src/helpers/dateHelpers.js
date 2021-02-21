@@ -56,7 +56,7 @@ export const getCurrentPeriod = (date) => {
   return currentPeriod || { ...date[0] };
 };
 
-export async function getAllPeriods() {
+export const getAllPeriods = async () => {
   if (yearsAndMonths.length === 0) {
     joinYearsMonths();
   } 
