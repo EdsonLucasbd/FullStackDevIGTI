@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
+import Transactions from "../../components/Transactions";
 
-import ButtonPrevNext from "../../components/ButtonPrevNext";
 import Loader from "../../components/Loader";
-import Selection from "../../components/Selection";
+import PeriodSelector from "../../components/PeriodSelector";
 import Summary from "../../components/Summary";
 
 import * as api from "../../services/api";
@@ -13,8 +13,6 @@ export default function Home() {
   const [currentTransactions, setCurrentTransactions] = useState([]);
   const [filteredTransactions, setFilteredTransactions] = useState([]);
 
-  //const [currentYearMonth, setCurrentYearMonth] = useState(getCurrentPeriod());
-
   const [allPeriods, setAllPeriods] = useState([])
   
   const [currentPeriod, setCurrentPeriod] = useState(null);
@@ -22,6 +20,7 @@ export default function Home() {
 
   const [summaryData, setSummaryData] = useState(null);
 
+  //carrega o periodo atual ao iniciar a app
   useEffect(() => {
     const getFullPeriods = async () => {
       const data = await api.getAllPeriods();
@@ -33,6 +32,7 @@ export default function Home() {
     getFullPeriods();
   }, []);
   
+  //monitora o periodo atual e carrega as transações deste período
   useEffect(() => {
     const fetchData = async () => {
       if (!currentPeriod) {
@@ -42,7 +42,6 @@ export default function Home() {
       setCurrentTransactions([]);
       const transactions = await api.getTransactionsFrom(currentPeriod);
       setCurrentTransactions(transactions);
-      console.log(transactions);
     } 
 
     /* setTimeout(() => {
@@ -50,6 +49,7 @@ export default function Home() {
     }, 1000); */
     fetchData();
   }, [currentPeriod]);
+
 
   useEffect(() => {
     if (filterText.trim() === '') {
@@ -67,6 +67,7 @@ export default function Home() {
 
   }, [filterText, currentTransactions]);
 
+  //carrega as informações do sumario de acordo com as transações filtradas
   useEffect(() => {
     const summarizeData = () => {
       const total = filteredTransactions.length;
@@ -95,21 +96,9 @@ export default function Home() {
     summarizeData();
   }, [filteredTransactions]);
 
-  function handleChangePeriod(newPeriod) {
+  const handlePeriodChange = newPeriod => {
     setCurrentPeriod(newPeriod);
-  }
-  function modifyYearMonth(BeforeAfter) {
-    let index = api.ALL_PERIODS.indexOf(
-      api.ALL_PERIODS.find((ym) => ym.value === currentPeriod)
-    );
-
-    eval(`index${BeforeAfter}${BeforeAfter}`);
-
-    if (index < 0 || index === api.ALL_PERIODS.length) {
-      return;
-    }
-    handleChangePeriod(api.ALL_PERIODS[index].value);
-  }
+  };
 
   return (
     <div className="container">
@@ -118,26 +107,22 @@ export default function Home() {
         <h4>Controle Financeiro Pessoal</h4>
       </div>
 
-      <div className="alignRow">
-        <ButtonPrevNext value="-" onClick={modifyYearMonth} />
-        <Selection
-          values={allPeriods}
-          selectedValue={currentPeriod}
-          onChange={handleChangePeriod}
-        />
-        <ButtonPrevNext value="+" onClick={modifyYearMonth} />
-      </div>
+      <PeriodSelector
+        allPeriodsValues={allPeriods}
+        selectedValue={currentPeriod}
+        onChangePeriod={handlePeriodChange}
+      />
 
-        {currentTransactions.length === 0 && <Loader />}
-        {currentTransactions.length > 0 && (
-          <>
-            <hr/>
-              <div>
-                <Summary transactions={summaryData}/>
-              </div>
-            <hr/>
-          </>
-        )}
+      {currentTransactions.length === 0 && <Loader />}
+      {currentTransactions.length > 0 && (
+        <>
+          <hr/>
+            <div>
+              <Summary transactions={summaryData}/>
+            </div>
+          <hr/>
+        </>
+      )}
         
       <div className="alignRow">
         <button className="waves-effect btn">
@@ -148,6 +133,11 @@ export default function Home() {
           <input type="text" id="inputFilter" />
         </div>
       </div>
+
+      <Transactions 
+        transactions={filteredTransactions}
+      />
+
     </div>
   );
 }

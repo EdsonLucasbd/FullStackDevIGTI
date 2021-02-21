@@ -91,7 +91,6 @@ async function getTransactionsFrom(period) {
     return prepareTransaction(transaction); 
   });
 
-  console.log(data);
   return frontEndTransactions.sort((a, b) => 
   a.yearMonthDay.localeCompare(b.yearMonthDay)
   );

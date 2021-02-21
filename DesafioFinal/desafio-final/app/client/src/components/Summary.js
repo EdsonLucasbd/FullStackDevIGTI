@@ -6,33 +6,6 @@ export default function Summary({ transactions }) {
   /* const CREDIT_COLOR = "green-text text-accent-3";
   const DEBIT_COLOR = "red-text"; */
   const textColor = balance >= 0 ? "green-text text-accent-3" : "red-text";
-  /* const total = transactions.length;
-
-  const sum = transactions.reduce(
-    (accumulator, { type, value }) => {
-      type === "+"
-        ? (accumulator.credit += value)
-        : (accumulator.debit += value);
-
-      return accumulator;
-    },
-    { credit: 0, debit: 0 }
-  );
-
-  const credit = sum.credit;
-  const debit = sum.debit;
-  const balance = credit - debit; */
-  /* const [balanceIcon, setBalanceIcon] = useState("");
-
-  if (balance > 0) {
-    setBalanceIcon("sentiment_very_satisfied");
-  }
-  if (balance < 0) {
-    setBalanceIcon("sentiment_very_dissatisfied");
-  }
-  if (balance == 0) {
-    setBalanceIcon("sentiment_neutral");
-  } */
 
   const balanceIcon = balance >= 0 ? "sentiment_very_satisfied" : "sentiment_very_dissatisfied";
 
