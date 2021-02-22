@@ -82,7 +82,6 @@ async function getAllPeriods() {
   return yearsAndMonths;
 }
 
-
 async function getTransactionsFrom(period) {
   const { id: yearMonth } = period;
   const { data } = await api.get(`${resource}?period=${yearMonth}`);
@@ -94,6 +93,28 @@ async function getTransactionsFrom(period) {
   return frontEndTransactions.sort((a, b) => 
   a.yearMonthDay.localeCompare(b.yearMonthDay)
   );
+}
+
+async function deleteTransaction(id) {
+  await api.delete(`${resource}/${id}`);
+  return;
+}
+
+async function updateTransaction(transaction) {
+  const { id } = transaction;
+  const completeTransaction = getCompleteTransaction(transaction);
+  await api.put(`${resource}/${id}`, completeTransaction);
+
+  const updateTransaction = prepareTransaction(completeTransaction);
+  return updateTransaction;
+}
+
+async function postTransaction(transaction) {
+  const completeTransaction = getCompleteTransaction(transaction);
+  const { data } = await api.post(resource, completeTransaction);
+
+  const newTransaction = prepareTransaction(data.transaction);
+  return newTransaction;
 }
 
 function getCompleteTransaction(transaction) {
@@ -116,5 +137,8 @@ export {
   getCurrentPeriod,
   getAllPeriods,
   getTransactionsFrom,
+  deleteTransaction,
+  updateTransaction,
+  postTransaction,
   ALL_PERIODS,
 }

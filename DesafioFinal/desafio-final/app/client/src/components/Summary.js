@@ -10,7 +10,7 @@ export default function Summary({ transactions }) {
 
   const balanceIcon = balance >= 0 ? "sentiment_very_satisfied" : "sentiment_very_dissatisfied";
   
-  const { containerStyle, summaryIcon } = styles;
+  const { containerStyle, summaryIcon, iconContainer } = styles;
   
   return (
     <div style={containerStyle}>
@@ -24,7 +24,9 @@ export default function Summary({ transactions }) {
           Receitas:{' '}
           <span className="green-text text-accent-3">{formatMoney(credit)}</span>
         </strong>
-        <i className="material-icons" style={summaryIcon}>arrow_circle_up</i>
+        <div style={iconContainer}>
+          <i className="material-icons" style={summaryIcon}>arrow_circle_up</i>
+        </div>
       </span>
 
       <span>
@@ -32,14 +34,18 @@ export default function Summary({ transactions }) {
           Despesas:{' '} 
           <span className="red-text">{formatMoney(debit)}</span>
         </strong>
-        <i className="material-icons" style={summaryIcon}>arrow_circle_down</i>
+        <div style={iconContainer}>
+          <i className="material-icons" style={summaryIcon}>arrow_circle_down</i>
+        </div>
       </span>
 
       <span>
         <strong>
           Saldo: <span className={textColor}>{formatMoney(balance)}</span>
         </strong>
-        <i className="material-icons" style={summaryIcon}>{balanceIcon}</i>
+        <div style={iconContainer}>
+          <i className="material-icons" style={summaryIcon}>{balanceIcon}</i>
+        </div>
       </span>
     </div>
   );
@@ -54,11 +60,16 @@ const styles = {
     flexWrap: 'wrap',
     padding: '5px',
     margin: '10px',
-    /* border: '1px solid lightgrey',
-    borderRadius: '4px', */
+    border: '1px solid lightgrey',
+    borderRadius: '4px',
   },
   summaryIcon: {
     fontSize: '20px',
     marginRight: '5px',
+  },
+  iconContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   }
 }

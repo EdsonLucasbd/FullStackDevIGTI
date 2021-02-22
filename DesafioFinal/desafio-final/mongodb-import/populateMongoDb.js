@@ -6,13 +6,6 @@ dotenv.config();
 
 const TRANSACTIONS_COLLECTION = 'transactions';
 
-/**
- * Crie um arquivo .env na raiz da pasta 'utils' e
- * preencha os valores conforme o arquivo de
- * exemplo "".env.example"
- *
- * DB_CONNECTION
- */
 const { DB_CONNECTION } = process.env;
 
 console.log('Iniciando conexão ao MongoDB...');

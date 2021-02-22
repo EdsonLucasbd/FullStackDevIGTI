@@ -1,23 +1,39 @@
-import React from 'react'
-import Transaction from './Transaction'
+import React from 'react';
+import Transaction from './Transaction';
 
-export default function Transactions({transactions}) {
+export default function Transactions({
+  transactions, 
+  onDeleteTransaction, 
+  onEditTransaction,
+}) {
+
+  const handleDelete = (id) => {
+    onDeleteTransaction(id);
+  };
+
+  const handleEdit = (id) => {
+    onEditTransaction(id);
+  };
+
   return (
-    <div>
-      {transactions.map(({ id, day, category, description, value, type }) => {
+    <div className='center' style={styles.transactionStyle}>
+      {transactions.map((transaction) => {
+        const { id } = transaction;
         return (
-          <div key={id}>
-            <Transaction
-              id={id}
-              day={day}
-              category={category}
-              description={description}
-              value={value}
-              type={type}
-            />
-          </div>
+          <Transaction
+            key={id}
+            transaction={transaction}
+            onDelete={handleDelete}
+            onEdit={handleEdit}
+          />
         );
       })}
     </div>
   )
 }
+
+const styles = {
+  transactionsStyle: {
+    padding: '5px',
+  },
+};

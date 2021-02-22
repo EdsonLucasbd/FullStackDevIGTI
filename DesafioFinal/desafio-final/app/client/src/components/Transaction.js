@@ -1,10 +1,12 @@
 import React from 'react';
 import { formatMoney } from '../helpers/moneyHelpers';
+import ActionButton from './ActionButton';
 
 const CREDIT_COLOR = '#5AD76B';
 const DEBIT_COLOR = '#D75A5A';
 
-export default function Transaction({ id, day, category, description, value, type }) {
+export default function Transaction({ transaction, onDelete, onEdit }) {
+  const { id, day, category, description, value, type } = transaction;
   const { 
     transactionContanier,
     transactionStyle, 
@@ -17,6 +19,17 @@ export default function Transaction({ id, day, category, description, value, typ
     actionsStyle, 
     creditStyle,
     debitStyle } = styles;
+
+  const handleActionClick = (type) => {
+    if (type === 'edit') {
+      onEdit(id);
+      return;
+    }
+    if (type === 'delet') {
+      onDelete(id);
+      return;
+    };
+  }
     
   const transactionTypeStyle = type === '+' ? creditStyle : debitStyle;
   return (
@@ -40,8 +53,8 @@ export default function Transaction({ id, day, category, description, value, typ
       </div>
 
       <div style={actionsStyle}>
-        <i className="material-icons">edit</i>
-        <i className="Tiny material-icons">delete</i>
+        <ActionButton type='edit' onActionClick={handleActionClick}/>
+        <ActionButton type='delete' onActionClick={handleActionClick}/>
       </div>
     </div>
   )

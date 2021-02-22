@@ -11,7 +11,7 @@ export default function ArrowButton({
 
   return (
     <button 
-      className="waves-effect btn" 
+      className="btn" 
       disabled={buttonDisabled}
       onClick={handleClick}
     >

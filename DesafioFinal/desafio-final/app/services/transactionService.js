@@ -57,6 +57,32 @@ const update = async (req, res) => {
       .send({ message: `Erro ao atualizar a transação id: ${id}, ${error}` });
   }
 };
+const updateMany = async (req, res) => {
+  const data = req.body;
+  if (!data) {
+    return res
+      .status(400)
+      .send({ message: "Necessário informar os dados para a atualização" });
+  }
+
+  try {
+    const newTransaction = await TransactionModel.update(
+      data,
+      {
+        new: true,
+      }
+    );
+    if (!newTransaction) {
+      res.status(404).send("Nenhuma transação encontrada");
+    } else {
+      res.status(200).send({transaction: newTransaction});
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .send({ message: `Erro ao atualizar a transação id: ${id}, ${error}` });
+  }
+};
 
 const remove = async (req, res) => {
   const id = req.params.id;
@@ -75,4 +101,4 @@ const remove = async (req, res) => {
   }
 };
 
-module.exports = { create, findByPeriod, update, remove };
+module.exports = { create, findByPeriod, update, updateMany, remove };

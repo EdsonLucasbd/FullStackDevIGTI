@@ -88,7 +88,17 @@ const styles = {
   },
 
   selectStyle: {
-    width: '150px',
-    fontFamily: "'Fira Code Retina', Consolas, monospace, Arial",
+    height: '50px',
+    width: '200px',
+    marginLeft: '10px',
+    marginRight: '10px',
+    fontWeight: 'bold',
+    fontSize: '1.2em',
+    border: '1px solid lightgray',
+    borderRadius: '10px',
+    outline: 'none',
+    color: '#333333',
+    paddingLeft: '15px',
+    /* appearance: 'none', */
   },
 };

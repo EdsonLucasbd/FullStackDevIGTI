@@ -8,17 +8,20 @@ import Summary from "../../components/Summary";
 import * as api from "../../services/api";
 
 import "../../styles.css";
+import ActionButtons from "../../components/ActionButtons";
+import ModalTransaction from "../../components/Modal";
 
 export default function Home() {
   const [currentTransactions, setCurrentTransactions] = useState([]);
   const [filteredTransactions, setFilteredTransactions] = useState([]);
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
 
   const [allPeriods, setAllPeriods] = useState([])
-  
   const [currentPeriod, setCurrentPeriod] = useState(null);
   const [filterText, setFilterText] = useState('');
 
   const [summaryData, setSummaryData] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   //carrega o periodo atual ao iniciar a app
   useEffect(() => {
@@ -44,9 +47,6 @@ export default function Home() {
       setCurrentTransactions(transactions);
     } 
 
-    /* setTimeout(() => {
-      setIsLoading(false);
-    }, 1000); */
     fetchData();
   }, [currentPeriod]);
 
@@ -58,7 +58,7 @@ export default function Home() {
       const lowerCaseFilter = filterText.toLowerCase();
       const newFilteredTransactions = currentTransactions.filter(
         transaction => {
-          return transaction.descriplionLowerCase.includes(lowerCaseFilter)
+          return transaction.descriptionLowerCase.includes(lowerCaseFilter)
         }
       );
 
@@ -100,6 +100,71 @@ export default function Home() {
     setCurrentPeriod(newPeriod);
   };
 
+  const handleDelete = async id => {
+    await api.deleteTransaction(id);
+    const newTransactions = currentTransactions.filter(
+      transaction => transaction.id !== id
+    );
+
+    setCurrentTransactions(newTransactions);
+    setFilteredTransactions(newTransactions);
+  };
+
+  const handleEdit = id => {
+    const newSelectedTransaction = currentTransactions.find(
+      transaction => transaction.id === id
+    );
+
+    setSelectedTransaction(newSelectedTransaction);
+    setIsModalOpen(true);
+  }
+
+  const handleInsertTransaction = () => {
+    setSelectedTransaction(null);
+    setIsModalOpen(true);
+  };
+
+  const handleFilter = filteredText => {
+    setFilterText(filteredText);
+  };
+
+  const handleModalClose = () => {
+    setSelectedTransaction(null);
+    setIsModalOpen(false);
+  };
+
+  const handleModalSave = async (newTransaction, mode) => {
+    setIsModalOpen(false);
+
+    if (mode === 'insert') {
+      const postedTransaction = await api.postTransaction(newTransaction);
+
+      let newTransactions = [...currentTransactions, postedTransaction];
+      //newTransactions = sortTransactions(newTransactions);
+      setCurrentTransactions(newTransactions);
+      setFilteredTransactions(newTransactions);
+      setSelectedTransaction(null);
+
+      return;
+    }
+
+    if (mode === 'edit') {
+      const updatedTransaction = await api.updateTransaction(newTransaction);
+      const newTransactions = [...currentTransactions];
+
+      const index = newTransactions.findIndex(
+        transaction => transaction.id === newTransaction.id
+      );
+
+      newTransactions[index] = updatedTransaction;
+      setCurrentTransactions(newTransactions);
+      setFilteredTransactions(newTransactions);
+
+      return;
+    }
+
+  };
+
   return (
     <div className="container">
       <div className="header">
@@ -116,28 +181,31 @@ export default function Home() {
       {currentTransactions.length === 0 && <Loader />}
       {currentTransactions.length > 0 && (
         <>
-          <hr/>
-            <div>
-              <Summary transactions={summaryData}/>
-            </div>
-          <hr/>
+          <Summary transactions={summaryData}/>
+
+          <ActionButtons
+            filterText={filterText}
+            isModalOpen={isModalOpen}
+            onFilter={handleFilter}
+            onNewTransaction={handleInsertTransaction}
+          />
+
+          <Transactions 
+            transactions={filteredTransactions}
+            onDeleteTransaction={handleDelete}
+            onEditTransaction={handleEdit}
+          />
         </>
       )}
         
-      <div className="alignRow">
-        <button className="waves-effect btn">
-          <i className="material-icons left">filter_list</i>
-          Filtrar
-        </button>
-        <div className="input-field">
-          <input type="text" id="inputFilter" />
-        </div>
-      </div>
-
-      <Transactions 
-        transactions={filteredTransactions}
-      />
-
+      {isModalOpen && (
+        <ModalTransaction 
+          isOpen={isModalOpen}
+          onClose={handleModalClose}
+          onSave={handleModalSave}
+          selectedTransaction={selectedTransaction}
+        />
+      )}
     </div>
   );
 }
