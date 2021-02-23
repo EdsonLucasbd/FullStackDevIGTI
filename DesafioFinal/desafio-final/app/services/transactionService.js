@@ -75,4 +75,4 @@ const remove = async (req, res) => {
   }
 };
 
-module.exports = { create, findByPeriod, update, updateMany, remove };
+module.exports = { create, findByPeriod, update, remove };
