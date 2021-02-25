@@ -1,4 +1,10 @@
 import axios from "axios";
+import express from "express";
+import cors from "cors";
+
+const app = express();
+app.use(cors());
+app.use(express.json());
 
 const api = axios.create({ baseURL: 'http://localhost:3001/api' });
 const resource = '/transaction';
