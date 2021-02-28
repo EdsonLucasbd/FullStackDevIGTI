@@ -1,25 +1,7 @@
 import axios from "axios";
-import express from "express";
-import cors from "cors";
 
-const app = express();
-app.use(cors());
-app.use(express.json());
-
-const api = axios.create({ baseURL: 'http://localhost:3001/api' });
+const api = axios.create({ baseURL: 'api' });
 const resource = '/transaction';
-
-/* async function fetchData(url) {
-  const resource = await fetch(url);
-  const json = await resource.json();
-  return json;
-}
-
-export async function apiGetTransactionsByPeriod(yearMonth) {
-  const url = `${baseUrl}find/?period=${yearMonth}`;
-  const filteredTransactions = await fetchData(url);
-  return filteredTransactions;
-} */
 
 const YEARS = [2019, 2020, 2021];
 const GLOBAL_MONTHS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
@@ -47,7 +29,6 @@ function joinYearsMonths() {
 
   YEARS.forEach(year => {
     GLOBAL_MONTHS.forEach(month => {
-      //id = `ym${year}-${index + 1}`,
       const id = `${year}-${month.toString().padStart(2, '0')}`;
       const monthDescription = `${MONTH_DESCRIPTIONS[month]}/${year.toString()}`;
       yearsAndMonths.push({ id, description: monthDescription, index: index++ });
