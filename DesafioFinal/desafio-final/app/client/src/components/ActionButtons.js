@@ -15,7 +15,7 @@ export default function ActionButtons({ filterText, onFilter, onNewTransaction }
   return (
     <div style={containerStyle}>
       <button 
-        className="waves-effect btn"
+        className="btn"
         disabled={filterText.trim() !== ''}
         onClick={handleButtonClick}
       >
