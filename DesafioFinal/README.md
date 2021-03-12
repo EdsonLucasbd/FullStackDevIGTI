@@ -2,7 +2,7 @@
 <p>
   Desafio final do bootcamp desenvolvedor full stack da <a href="https://www.igti.com.br/">IGTI</a>.</br></br>
   Consiste em um sistema de controle financeiro com toda a parde de CRUD das despesas. Possui um histórico pré criado que abrange 2019 à 2021.</br>
-  Voçê pode ver o resultado aqui: <a href="best-desafio-final.herokuapp.com/">CFP</a>
+  Voçê pode ver o resultado aqui: <a href="https://best-desafio-final.herokuapp.com/">CFP</a>
 </p>
 
 <h2>🧩 Tecnologias</h2>
